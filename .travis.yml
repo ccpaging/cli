@@ -1,1 +1,10 @@
 language: go
+
+# script always run to completion (set +e). All of these code checks are must haves
+# in a modern Go project.
+script:
+  - go test ./
+  - go run ./foo/main.go
+  - go run ./example/group.go
+  - go run ./example/main.go
+  - go run ./example/simple.go
