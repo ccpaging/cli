@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"errors"
 	"strconv"
 )
 
@@ -40,21 +41,36 @@ func (c *Context) ValueOf(flagName string) (string, bool) {
 // String returns a string of corresponding variable flag.
 // Second (bool) parameter says whether it's really defined or not.
 func (c *Context) String(flagName string) (string, bool) {
-	value, ok := c.vars[flagName]
-	return value, ok
+	s, ok := c.vars[flagName]
+	return s, ok
 }
 
 // Bool returns a bool of corresponding variable flag.
 func (c *Context) Bool(flagName string) bool {
-	value, ok := c.vars[flagName]
+	s, ok := c.vars[flagName]
 	if !ok {
 		return false
 	}
-	ok, err := strconv.ParseBool(value)
+	ok, err := strconv.ParseBool(s)
 	if err != nil {
 		return false
 	}
 	return ok
+}
+
+// Int64 returns a int64 of corresponding variable flag.
+func (c *Context) Int64(flagName string) (int64, error) {
+	s, ok := c.vars[flagName]
+	if !ok {
+		return 0, errors.New("Not found " + flagName)
+	}
+	return strconv.ParseInt(s, 0, 0)
+}
+
+// Int returns a int of corresponding variable flag.
+func (c *Context) Int(flagName string) (int, error) {
+	i64, err := c.Int64(flagName)
+	return int(i64), err
 }
 
 // Vars returns a map[string]string of arguments and options of command call.
