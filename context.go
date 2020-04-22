@@ -1,7 +1,6 @@
 package cli
 
 import (
-	"errors"
 	"strconv"
 )
 
@@ -24,57 +23,72 @@ func newContext(a *App, flags []*Flag, argv []string) (*Context, error) {
 	return c, nil
 }
 
-// Has returns true if a flag with corresponding name is defined.
-func (c *Context) Has(flagName string) bool {
-	if _, ok := c.vars[flagName]; ok {
-		return true
-	}
-
-	return false
-}
-
-// DEPRECATED: Use String(string) instead.
-func (c *Context) ValueOf(flagName string) (string, bool) {
-	return c.String(flagName)
-}
-
-// String returns a string of corresponding variable flag.
+// Get returns a value of corresponding variable flag.
 // Second (bool) parameter says whether it's really defined or not.
-func (c *Context) String(flagName string) (string, bool) {
+func (c *Context) Get(flagName string) (string, bool) {
 	s, ok := c.vars[flagName]
 	return s, ok
 }
 
-// Bool returns a bool of corresponding variable flag.
-func (c *Context) Bool(flagName string) bool {
-	s, ok := c.vars[flagName]
-	if !ok {
-		return false
-	}
-	ok, err := strconv.ParseBool(s)
-	if err != nil {
-		return false
-	}
+// DEPRECATED: Use Has(string) instead.
+func (c *Context) Is(flagName string) bool {
+	_, ok := c.Get(flagName)
 	return ok
 }
 
-// Int64 returns a int64 of corresponding variable flag.
-func (c *Context) Int64(flagName string) (int64, error) {
-	s, ok := c.vars[flagName]
+// Has returns true if a flag with corresponding name is defined.
+func (c *Context) Has(flagName string) bool {
+	_, ok := c.Get(flagName)
+	return ok
+}
+
+// String returns a string of corresponding variable flag.
+// Second (bool) parameter says whether it's really defined or not.
+func (c *Context) String(flagName string) string {
+	s, ok := c.Get(flagName)
 	if !ok {
-		return 0, errors.New("Not found " + flagName)
+		return ""
 	}
-	return strconv.ParseInt(s, 0, 0)
+	return s
+}
+
+// Bool returns a bool of corresponding variable flag.
+func (c *Context) Bool(flagName string) bool {
+	s, ok := c.Get(flagName)
+	if !ok {
+		return false
+	}
+	v, err := strconv.ParseBool(s)
+	if err != nil {
+		return false
+	}
+	return v
+}
+
+// Int64 returns a int64 of corresponding variable flag.
+//
+// Look for prefix of binary("0b"), octal("0o"), hex("0x").
+func (c *Context) Int64(flagName string) int64 {
+	s, ok := c.Get(flagName)
+	if !ok {
+		return 0
+	}
+	n, err := strconv.ParseInt(s, 0, 0)
+	if err != nil {
+		return 0
+	}
+	return n
 }
 
 // Int returns a int of corresponding variable flag.
-func (c *Context) Int(flagName string) (int, error) {
-	i64, err := c.Int64(flagName)
-	return int(i64), err
+//
+// Look for prefix of binary("0b"), octal("0o"), hex("0x").
+func (c *Context) Int(flagName string) int {
+	return int(c.Int64(flagName))
 }
 
-// Vars returns a map[string]string of arguments and options of command call.
-func (c *Context) Vars() map[string]string {
+// Variables returns a map[string]string of arguments and options of command call.
+func (c *Context) Variables() map[string]string {
 	return c.vars
 }
 

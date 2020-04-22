@@ -122,6 +122,9 @@ type Flag struct {
 	// Short names can't contain more than 3 alphanumeric characters.
 	Short string
 
+	// Default value (as string).
+	DefValue string
+
 	// Suggested use case, a generic example, showing
 	// user how to use the flag.
 	//
