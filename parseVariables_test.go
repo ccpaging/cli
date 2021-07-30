@@ -89,14 +89,14 @@ func TestContext(t *testing.T) {
 		&Flag{Name: "force", Short: "f"},
 		&Flag{Name: "slug"},
 	}, []string{"-f", "--slug", "dog_03", "Dog Doggson"}, map[string]string{
-		"force": "true",
+		"force": "",
 		"slug":  "dog_03 Dog Doggson",
 	})
 
 	check("missing flag", beStrict, []*Flag{
 		&Flag{Name: "filter"},
 	}, []string{"--notexist"}, map[string]string{
-		"notexist": "true",
+		"notexist": "",
 	})
 
 	// FAIL TESTS

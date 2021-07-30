@@ -51,7 +51,7 @@ func parseVariables(beStrict bool, flags []*Flag, argv []string) (map[string]str
 		}
 
 		if len(parts) == 1 && len(value) == 0 {
-			vars[flag.Name] = "true"
+			vars[flag.Name] = ""
 			continue
 		}
 

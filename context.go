@@ -58,8 +58,17 @@ func (c *Context) Bool(flagName string) bool {
 	if !ok {
 		return false
 	}
+	if s == "" {
+		return true
+	}
 	v, err := strconv.ParseBool(s)
 	if err != nil {
+		switch s {
+		case "on", "ON", "On":
+			return true
+		case "off", "OFF", "Off":
+			return false
+		}
 		return false
 	}
 	return v
@@ -87,13 +96,13 @@ func (c *Context) Int(flagName string) int {
 	return int(c.Int64(flagName))
 }
 
-// Variables returns a map[string]string of arguments and options of command call.
-func (c *Context) Variables() map[string]string {
+// MapString returns a map[string]string of arguments and options of command call.
+func (c *Context) MapString() map[string]string {
 	return c.vars
 }
 
-// Map returns a map[string]interface{} of arguments and options of command call.
-func (c *Context) Map() map[string]interface{} {
+// MapInterface returns a map[string]interface{} of arguments and options of command call.
+func (c *Context) MapInterface() map[string]interface{} {
 	out := make(map[string]interface{})
 	for k, v := range c.vars {
 		out[k] = v
