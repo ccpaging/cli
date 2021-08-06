@@ -96,16 +96,7 @@ func (c *Context) Int(flagName string) int {
 	return int(c.Int64(flagName))
 }
 
-// MapString returns a map[string]string of arguments and options of command call.
-func (c *Context) MapString() map[string]string {
+// Variables returns a map[string]string of arguments and options of command call.
+func (c *Context) Variables() map[string]string {
 	return c.vars
-}
-
-// MapInterface returns a map[string]interface{} of arguments and options of command call.
-func (c *Context) MapInterface() map[string]interface{} {
-	out := make(map[string]interface{})
-	for k, v := range c.vars {
-		out[k] = v
-	}
-	return out
 }
