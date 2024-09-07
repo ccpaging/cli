@@ -8,7 +8,7 @@ import (
 // CmdHandler is a handling function type for functions.
 //
 // Returned integer would be used as application exit status.
-type CmdHandler func(ctx *Context) (exitCode int)
+type CmdHandler func(args *Args) (exitCode int)
 
 // Command represents a top-level application subcommand.
 type Command struct {

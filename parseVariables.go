@@ -12,7 +12,7 @@ func parseVariables(beStrict bool, flags []*Flag, argv []string) (map[string]str
 
 		if !strings.HasPrefix(argument, "-") {
 			if beStrict {
-				return nil, fmt.Errorf(`No option name before argument %s`, argument)
+				return nil, fmt.Errorf(`no option name before argument %s`, argument)
 			}
 			continue
 		}

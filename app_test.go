@@ -103,7 +103,7 @@ func TestRun_Help(t *testing.T) {
 		Usage: "-http=4747",
 		Help:  "Lorem ipsum dolor sit amet amet sit.",
 		Flags: []*Flag{
-			&Flag{
+			{
 				Name:  "http",
 				Short: "p",
 				Usage: "-http=4747",
@@ -111,7 +111,7 @@ func TestRun_Help(t *testing.T) {
 			},
 		},
 		Examples: []*Example{
-			&Example{
+			{
 				Usecase:     "-http 4747",
 				Description: "Start a server on http port 4747.",
 			},

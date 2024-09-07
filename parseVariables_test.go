@@ -38,63 +38,63 @@ func TestContext(t *testing.T) {
 	check("no flags", beStrict, []*Flag{}, []string{"argument", "a thing"}, map[string]string{})
 
 	check("single non-var flag", beStrict, []*Flag{
-		&Flag{Name: "force"},
+		{Name: "force"},
 	}, []string{"--force", "hard life in ghetto"}, map[string]string{
 		"force": "hard life in ghetto",
 	})
 
 	check("single shortened non-var flag", beStrict, []*Flag{
-		&Flag{Name: "force", Short: "f"},
+		{Name: "force", Short: "f"},
 	}, []string{"-f", "hard life in ghetto"}, map[string]string{
 		"force": "hard life in ghetto",
 	})
 
 	check("separated variable flag", beStrict, []*Flag{
-		&Flag{Name: "filter"},
+		{Name: "filter"},
 	}, []string{"--filter", "token here"}, map[string]string{
 		"filter": "token here",
 	})
 
 	check("joined empty variable flag", beStrict, []*Flag{
-		&Flag{Name: "filter"},
+		{Name: "filter"},
 	}, []string{`--filter=`}, map[string]string{
 		"filter": "",
 	})
 
 	check("joined single-word variable flag", beStrict, []*Flag{
-		&Flag{Name: "filter"},
+		{Name: "filter"},
 	}, []string{`--filter=token`}, map[string]string{
 		"filter": "token",
 	})
 
 	check("joined multi-word variable flag", beStrict, []*Flag{
-		&Flag{Name: "filter"},
+		{Name: "filter"},
 	}, []string{`--filter=token here`}, map[string]string{
 		"filter": "token here",
 	})
 
 	check("joined single-word shortened variable flag", beStrict, []*Flag{
-		&Flag{Name: "filter", Short: "f"},
+		{Name: "filter", Short: "f"},
 	}, []string{`-f=token`}, map[string]string{
 		"filter": "token",
 	})
 
 	check("joined multi-word shortened variable flag", beStrict, []*Flag{
-		&Flag{Name: "filter", Short: "f"},
+		{Name: "filter", Short: "f"},
 	}, []string{`-f=token here`}, map[string]string{
 		"filter": "token here",
 	})
 
 	check("sophisticated", beStrict, []*Flag{
-		&Flag{Name: "force", Short: "f"},
-		&Flag{Name: "slug"},
+		{Name: "force", Short: "f"},
+		{Name: "slug"},
 	}, []string{"-f", "--slug", "dog_03", "Dog Doggson"}, map[string]string{
 		"force": "",
 		"slug":  "dog_03 Dog Doggson",
 	})
 
 	check("missing flag", beStrict, []*Flag{
-		&Flag{Name: "filter"},
+		{Name: "filter"},
 	}, []string{"--notexist"}, map[string]string{
 		"notexist": "",
 	})
@@ -104,10 +104,10 @@ func TestContext(t *testing.T) {
 	beStrict = true
 
 	mustFail("no flags in strict mode", beStrict, []*Flag{
-		&Flag{Name: "filter"},
+		{Name: "filter"},
 	}, []string{"argument", "a thing"})
 
 	mustFail("missing flag in strict mode", beStrict, []*Flag{
-		&Flag{Name: "filter"},
+		{Name: "filter"},
 	}, []string{"--notexist"})
 }
