@@ -124,11 +124,14 @@ func (a *App) Run() int {
 		// $ program help
 		//           ^ one argument
 		if len(arguments) <= 1 {
-			if a.Root != nil {
-				a.println(a.commandHelp(a.Root))
-			} else {
-				a.println(a.globalHelp())
-			}
+			/*
+				if a.Root != nil {
+					a.println(a.commandHelp(a.Root))
+				} else {
+					a.println(a.globalHelp())
+				}
+			*/
+			a.println(a.globalHelp())
 			return 0
 		}
 
