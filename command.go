@@ -75,12 +75,12 @@ func (cmd Command) Run(a *App) (exitCode int) {
 		// skip subcommand
 		arguments = os.Args[2:]
 	}
-	ctx, err := newContext(a, cmd.Flags, arguments)
+	args, err := newArgs(a, cmd.Flags, arguments)
 	if err != nil {
 		a.printerr(err)
 		os.Exit(1)
 	}
-	exitCode = cmd.Handle(ctx)
+	exitCode = cmd.Handle(args)
 	return
 }
 

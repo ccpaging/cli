@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/ccpaging/cli"
 )
 
@@ -94,9 +95,9 @@ func main() {
 	demo.Run()
 }
 
-// Handler accepts a cli.Context object and returns an exitcode integer.
-func Example_handler(ctx *cli.Context) int {
-	name, ok := ctx.ValueOf("name")
+// Handler accepts a cli.Args object and returns an exitcode integer.
+func Example_handler(args *cli.Args) int {
+	name, ok := args.Get("name")
 	if !ok {
 		fmt.Println("name not specified")
 

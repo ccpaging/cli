@@ -5,26 +5,26 @@ import (
 	"testing"
 )
 
-func TestContext(t *testing.T) {
+func TestArgs(t *testing.T) {
 	check := func(c string, beStrict bool, f []*Flag, a []string, exp map[string]string) {
-		vars, err := parseVariables(beStrict, f, a)
+		args, err := parseVariables(beStrict, f, a)
 		if err != nil {
 			t.Errorf(`case "%s" didn't finish well:`, c)
 			t.Logf(`error: %s`, err)
 			return
 		}
 
-		if !reflect.DeepEqual(vars, exp) {
+		if !reflect.DeepEqual(args, exp) {
 			t.Errorf(`case "%s" didn't finish well:`, c)
 			t.Logf("- expected:\n%v", exp)
-			t.Logf("- recieved:\n%v", vars)
+			t.Logf("- recieved:\n%v", args)
 		}
 	}
 
 	mustFail := func(c string, beStrict bool, f []*Flag, a []string) {
 		_, err := parseVariables(beStrict, f, a)
 		if err == nil {
-			t.Errorf(`invalid case "%s" resulted in valid context`, c)
+			t.Errorf(`invalid case "%s" resulted in valid args`, c)
 		}
 	}
 

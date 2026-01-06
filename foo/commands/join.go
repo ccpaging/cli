@@ -2,8 +2,9 @@ package commands
 
 import (
 	"fmt"
-	"github.com/ccpaging/cli"
 	"strings"
+
+	"github.com/ccpaging/cli"
 )
 
 var JoinCmd = &cli.Command{
@@ -28,8 +29,8 @@ var JoinCmd = &cli.Command{
 		},
 	},
 
-	Handle: func(ctx *cli.Context) int {
-		sep, ok := ctx.ValueOf("separator")
+	Handle: func(args *cli.Args) int {
+		sep, ok := args.Get("separator")
 		if !ok {
 			fmt.Println("separator not specified")
 

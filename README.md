@@ -72,13 +72,13 @@ joinCmd := cli.Command{
 		},
 	},
 
-	Handle: func(ctx cli.Context) int {
+	Handle: func(args cli.Args) int {
 		var separator string
-		if sep, ok := ctx.Get("separator"); ok {
+		if sep, ok := args.Get("separator"); ok {
 			separator = sep
 		}
 
-		fmt.Println(strings.Join(ctx.Args, separator))
+		fmt.Println(strings.Join(args.Args, separator))
 
 		return 0
 	},

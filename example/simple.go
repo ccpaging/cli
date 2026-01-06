@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/ccpaging/cli"
 	"strings"
+
+	"github.com/ccpaging/cli"
 )
 
 func main() {
@@ -33,9 +34,9 @@ func main() {
 			},
 		},
 
-		Handle: func(ctx *cli.Context) int {
+		Handle: func(args *cli.Args) int {
 			var separator string
-			if sep, ok := ctx.ValueOf("separator"); ok {
+			if sep, ok := args.Get("separator"); ok {
 				separator = sep
 			}
 
@@ -54,9 +55,9 @@ func main() {
 	demo.Run()
 }
 
-// Handler accepts a cli.Context object and returns an exitcode integer.
-func Example_handler(ctx *cli.Context) int {
-	name, ok := ctx.ValueOf("name")
+// Handler accepts a cli.Args object and returns an exitcode integer.
+func Example_handler(args *cli.Args) int {
+	name, ok := args.Get("name")
 	if !ok {
 		fmt.Println("name not specified")
 

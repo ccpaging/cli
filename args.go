@@ -10,7 +10,7 @@ type Args struct {
 	vars map[string]string
 }
 
-func newContext(a *App, flags []*Flag, argv []string) (*Args, error) {
+func newArgs(a *App, flags []*Flag, argv []string) (*Args, error) {
 	vars, err := parseVariables(a.Strict, flags, argv)
 	if err != nil {
 		return nil, err
